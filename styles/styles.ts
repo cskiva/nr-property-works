@@ -22,11 +22,22 @@ const styles: CSSClasses = {
     backgroundColor: colorGray,
   },
 
-  flex: {
+ 'flex': {
     display: 'flex',
     flexDirection: 'row',
     flexWrap: 'nowrap',
   },
+
+'flex-centered': {
+		display: 'flex',
+		justifyContent: 'center',
+		alignItems: 'center'
+	},
+
+'subtotalArea' : {
+	border: "solid 1px red",
+	height: "25px"
+},
 
   'w-auto': {
     flex: 1,

@@ -2,7 +2,8 @@ import 'rc-slider/assets/index.css'
 
 import React, { FC, useRef, useState } from 'react'
 
-import { Image } from '@react-pdf/renderer'
+import Image from "next/image"
+import { Image as ImagePDF } from '@react-pdf/renderer'
 import Slider from 'rc-slider'
 import compose from '../styles/compose'
 import useOnClickOutside from '../hooks/useOnClickOutside'
@@ -77,7 +78,7 @@ const EditableFileImage: FC<Props> = ({ className, placeholder, value, width, on
   if (pdfMode) {
     if (value) {
       return (
-        <Image
+	 <ImagePDF
         style={{...compose(`image ${className ? className : ''}`), maxWidth: width}}
 		src="/images/NRPW_4x.png"
         />
@@ -99,10 +100,11 @@ const EditableFileImage: FC<Props> = ({ className, placeholder, value, width, on
         </button>
       ) : (
         <>
-          <img
+		<Image
 			src="/images/NRPW_4x.png"
             className="image__img"
             alt={placeholder}
+	width="300px" height="55px"
             style={{ maxWidth: width || 100}}
           />
 

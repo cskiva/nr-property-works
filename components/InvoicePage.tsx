@@ -9,11 +9,14 @@ import EditableFileImage from './EditableFileImage'
 import EditableInput from './EditableInput'
 import EditableTextarea from './EditableTextarea'
 import { Font } from '@react-pdf/renderer'
+import Image from "next/image"
+import { Image as ImagePDF } from '@react-pdf/renderer'
 import LogoNRPW from "./images/NRPW_4x.png";
 import NonEditableTextarea from "../components/NonEditableTextarea"
 import Page from './Page'
 import Text from './Text'
 import View from './View'
+import compose from '../styles/compose'
 import format from 'date-fns/format'
 
 Font.register({
@@ -142,15 +145,18 @@ const InvoicePage: FC<Props> = ({ data, pdfMode }) => {
 
 				<View className="flex" pdfMode={pdfMode}>
 					<View className="w-50 flex-col" pdfMode={pdfMode}>
-						<EditableFileImage
+						{!pdfMode ?			
+						<Image
 							className="logo"
-							placeholder="Your Logo"
-							value="./images/NRPW_4x.png"
+							alt="Your Logo"
+							src="/images/NRPW_4x.png"
 							width={invoice.logoWidth}
-							pdfMode={pdfMode}
-							onChangeImage={(value: string | number) => handleChange('logo', value)}
-							onChangeWidth={(value: string | number) => handleChange('logoWidth', value)}
-						/>
+							height={77}
+						/> :
+						<ImagePDF
+							style={{ ...compose(`image`), maxWidth: invoice.logoWidth }}
+							src="/images/NRPW_4x.png"
+						/>}
 						<NonEditableTextarea
 							className="fs-20 bold m-0"
 							value="Northern Rivers Property Works"
@@ -393,7 +399,8 @@ const InvoicePage: FC<Props> = ({ data, pdfMode }) => {
 								</Text>
 							</View>
 						</View>
-						<View className="flex-centered  bg-gray p-5" pdfMode={pdfMode}>
+						
+						<View className="flex-centered bg-gray p-5 subtotalArea" pdfMode={pdfMode}>
 							<View className="w-50 p-5" pdfMode={pdfMode}>
 								<NonEditableTextarea
 									className="bold"
@@ -415,6 +422,7 @@ const InvoicePage: FC<Props> = ({ data, pdfMode }) => {
 								</Text>
 							</View>
 						</View>
+						
 					</View>
 				</View>
 
